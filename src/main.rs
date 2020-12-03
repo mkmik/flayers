@@ -14,14 +14,14 @@ fn main() -> Result<(), std::io::Error> {
     let target = comp.next().unwrap();
     let addr = comp.next().unwrap();
     let url = format!("{}/{}", GATEWAY, addr);
+
+    println!("Downloading {}", url);
     let body = reqwest::blocking::get(&url).unwrap().bytes().unwrap();
 
     let tar = GzDecoder::new(&body[..]);
     let mut archive = Archive::new(tar);
 
-    println!("Unpacking {}", target);
     archive.unpack(target)?;
-    println!("UNPACKED");
 
     Ok(())
 }

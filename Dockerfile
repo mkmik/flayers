@@ -3,9 +3,11 @@
 # Build Stage
 FROM rust:1.48.0 AS builder
 
-ENV BIN=flayers
 ENV CARGO_TARGET_DIR=/tmp/target
 ENV CARGO_HOME=/tmp/cargo
+RUN rustup target add x86_64-unknown-linux-musl
+
+ENV BIN=flayers
 
 WORKDIR /usr/src/
 
