@@ -1,6 +1,7 @@
 use flate2::read::GzDecoder;
 use std::env;
 use tar::Archive;
+use anyhow::Result;
 
 const GATEWAY: &str = "https://ipfs.io";
 
@@ -9,11 +10,11 @@ struct Opt {
   addr: String,
 }
 
-fn download(opt: &Opt) -> Result<(), std::io::Error> {
+fn download(opt: &Opt) -> Result<()> {
     let url = format!("{}/{}", GATEWAY, opt.addr);
 
     println!("Downloading {}", url);
-    let body = reqwest::blocking::get(&url).unwrap().bytes().unwrap();
+    let body = reqwest::blocking::get(&url)?.bytes()?;
 
     let tar = GzDecoder::new(&body[..]);
     let mut archive = Archive::new(tar);
@@ -23,7 +24,7 @@ fn download(opt: &Opt) -> Result<(), std::io::Error> {
     Ok(())
 }
 
-fn main() -> Result<(), std::io::Error> {
+fn main() -> Result<()> {
     let mut args = env::args();
     args.next();
     args.next();
