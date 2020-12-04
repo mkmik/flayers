@@ -1,4 +1,4 @@
-FROM mkmik/flayer as layers
+FROM mkmik/flayers as layers
 RUN /layer1 ipfs/QmcFRXYG3CriDWBaoMDmTV3SkjL9rhGSv7oyiatiQrteaF
 
 FROM bitnami/minideb
