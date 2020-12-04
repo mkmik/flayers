@@ -1,13 +1,16 @@
-use flate2::read::GzDecoder;
-use std::env;
-use tar::Archive;
 use anyhow::Result;
+use flate2::read::GzDecoder;
+use structopt::StructOpt;
+use tar::Archive;
+use std::iter;
 
 const GATEWAY: &str = "https://ipfs.io";
 
+#[derive(StructOpt)]
+#[derive(Debug)]
 struct Opt {
-  target: String,
-  addr: String,
+    target: String,
+    addr: String,
 }
 
 fn download(opt: &Opt) -> Result<()> {
@@ -24,20 +27,16 @@ fn download(opt: &Opt) -> Result<()> {
     Ok(())
 }
 
+#[derive(StructOpt)]
+#[derive(Debug)]
+struct ShellShimOpt {
+    #[structopt(short = "c")]
+    cmd: String,
+}
+
 fn main() -> Result<()> {
-    let mut args = env::args();
-    args.next();
-    args.next();
-    let cmd = args.next().unwrap();
-    let mut comp = cmd.split_whitespace();
-
-    let target = comp.next().unwrap();
-    let addr = comp.next().unwrap();
-
-    let opt = Opt {
-      target: target.to_string(),
-      addr: addr.to_string(),
-    };
-
-	download(&opt)
+    let shopt = ShellShimOpt::from_args();
+    let sub_args = iter::once("flayers").chain(shopt.cmd.split_whitespace());
+    let opt = Opt::from_iter(sub_args);
+    download(&opt)
 }
