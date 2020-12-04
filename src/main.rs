@@ -4,6 +4,25 @@ use tar::Archive;
 
 const GATEWAY: &str = "https://ipfs.io";
 
+struct Opt {
+  target: String,
+  addr: String,
+}
+
+fn download(opt: &Opt) -> Result<(), std::io::Error> {
+    let url = format!("{}/{}", GATEWAY, opt.addr);
+
+    println!("Downloading {}", url);
+    let body = reqwest::blocking::get(&url).unwrap().bytes().unwrap();
+
+    let tar = GzDecoder::new(&body[..]);
+    let mut archive = Archive::new(tar);
+
+    archive.unpack(&opt.target)?;
+
+    Ok(())
+}
+
 fn main() -> Result<(), std::io::Error> {
     let mut args = env::args();
     args.next();
@@ -13,15 +32,11 @@ fn main() -> Result<(), std::io::Error> {
 
     let target = comp.next().unwrap();
     let addr = comp.next().unwrap();
-    let url = format!("{}/{}", GATEWAY, addr);
 
-    println!("Downloading {}", url);
-    let body = reqwest::blocking::get(&url).unwrap().bytes().unwrap();
+    let opt = Opt {
+      target: target.to_string(),
+      addr: addr.to_string(),
+    };
 
-    let tar = GzDecoder::new(&body[..]);
-    let mut archive = Archive::new(tar);
-
-    archive.unpack(target)?;
-
-    Ok(())
+	download(&opt)
 }
