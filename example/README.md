@@ -30,8 +30,8 @@ echo foo
 
 The `Dockerfile` is a multi-stage build divided in two stages
 
-* the first stage collects the layers by downloading them from IPFS
-* the second stage is the actual image being built. You can inject layers referenced from the previous stage
+* the first stage collects the layers by downloading them from IPFS.
+* the second stage is the actual image being built. You can inject layers referenced from the previous stage.
 
 ```dockerfile
 FROM mkmik/flayers as layers
@@ -45,3 +45,10 @@ ENTRYPOINT [ "/foo" ]
 ```
 
 Filesystem metadata including timestamps are preserved, and thus the layers have a reproducible digest.
+
+The `mkmik/flayers` image is designed to only download tarballs from IPFS gateways. It contains a small
+rust program that can only do that and pretends to be a shell, effectively implementing a DSL:
+
+```
+/layerN ipfs/<ipfs-hash>
+```
