@@ -6,16 +6,24 @@ use std::path::PathBuf;
 use structopt::StructOpt;
 use tar::Archive;
 
-const GATEWAY: &str = "https://ipfs.io";
+const DEFAULT_GATEWAY: &str = "https://ipfs.io";
 
 #[derive(StructOpt, Debug)]
 struct Opt {
     target: String,
     addr: String,
+
+    #[structopt(
+        long,
+        short = "g",
+        env = "IPFS_GATEWAY",
+        default_value = DEFAULT_GATEWAY,
+    )]
+    ipfs_gateway: String,
 }
 
 fn download(opt: &Opt) -> Result<()> {
-    let url = format!("{}/{}", GATEWAY, opt.addr);
+    let url = format!("{}/{}", opt.ipfs_gateway, opt.addr);
 
     println!("Downloading {}", url);
     let body = reqwest::blocking::get(&url)?.bytes()?;
@@ -29,8 +37,14 @@ fn download(opt: &Opt) -> Result<()> {
 }
 
 #[derive(StructOpt, Debug)]
+#[structopt(
+    about = "This is a shell shim for the the flayers command. Pass arguments to flayers via the -c flag."
+)]
 struct ShellShimOpt {
-    #[structopt(short = "c")]
+    #[structopt(
+        short,
+        help = "Passes options to the flayers command; pass -c '. --help' to get the help of the flayers command itself."
+    )]
     cmd: String,
 }
 
