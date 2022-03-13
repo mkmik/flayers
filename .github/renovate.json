@@ -11,7 +11,7 @@
     "helpers:pinGitHubActionDigests"
   ],
   "includeForks": false,
-  "ignorePaths": ["**/examples/**"],
+  "ignorePaths": ["**/example/**"],
   "labels": ["dependencies"],
   "packageRules": [
     {
