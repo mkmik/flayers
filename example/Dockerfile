@@ -1,4 +1,4 @@
-FROM mkmik/flayers@sha256:c6b1d6838abfe13d74dcbaeae4c0c6e122b22d537fccef23523b9728053b20b8 as layers
+FROM mkmik/flayers@sha256:4b870401a78adcb109f75c7d1ba300bbdaab3c8161a373df2b4ba8ff2bad7fd3 as layers
 RUN /layer1 ipfs/QmcFRXYG3CriDWBaoMDmTV3SkjL9rhGSv7oyiatiQrteaF
 
 FROM bitnami/minideb@sha256:e158ab4d15b43b44aa48693d2d9f469da3676e7e44f178718983375cdb6d276c
