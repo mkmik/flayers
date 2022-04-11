@@ -7,7 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-flate2 = "1.0.22"
+flate2 = "1.0.23"
 tar = "0.4.38"
 reqwest = { version = "0.11.10", features = [ "blocking" ] }
 anyhow = "1.0"
