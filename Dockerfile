@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1-experimental
 
 # Build Stage
-FROM clux/muslrust:1.62.1@sha256:3a0568848e85cf931e3a2362725fe65881da9dd7b3ad888b11357d8a498e627f AS builder
+FROM clux/muslrust:1.62.1@sha256:534fb80633f7c05d3243d16def16799a894ea0957fb4bb5b511839ff79058f08 AS builder
 
 ENV CARGO_TARGET_DIR=/tmp/target
 ENV CARGO_HOME=/tmp/cargo
