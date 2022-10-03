@@ -32,7 +32,7 @@ RUN --mount=type=cache,target=/tmp/cargo \
 RUN ln -s /bin/flayers /out/sh
 
 # Bundle Stage
-FROM gcr.io/distroless/static@sha256:f4787e810dbc39dd59fcee319cf88e8a01181e1758dbd07c32ed4e14a9ba8904
+FROM gcr.io/distroless/static@sha256:72924583773eeeb9a6200e9f6dbfd95a27fbf25d39bfe7062c46d2654628f007
 COPY --from=builder /out/ /bin/
 ENTRYPOINT [ "/bin/flayers" ]
 
