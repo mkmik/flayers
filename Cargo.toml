@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 flate2 = "1.0.26"
-tar = "0.4.38"
+tar = "0.4.39"
 reqwest = { version = "0.11.18", features = [ "blocking" ] }
 anyhow = "1.0"
 structopt = "0.3"
