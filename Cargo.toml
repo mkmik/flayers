@@ -10,5 +10,5 @@ edition = "2018"
 flate2 = "1.0.30"
 tar = "0.4.40"
 reqwest = { version = "0.11.18", features = [ "blocking" ] }
-anyhow = "1.0"
+anyhow = "1.0.82"
 structopt = "0.3"
