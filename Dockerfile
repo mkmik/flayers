@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1-experimental
+# syntax = docker/dockerfile:1-experimental@sha256:600e5c62eedff338b3f7a0850beb7c05866e0ef27b2d2e8c02aa468e78496ff5
 
 # Build Stage
 FROM clux/muslrust:1.62.1@sha256:14a55156d249f43bf192625cd48ff7bfe4c3ae88e6a2a46332a8ef41c94d4fd1 AS builder
