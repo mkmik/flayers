@@ -5,7 +5,6 @@ FROM clux/muslrust:stable AS builder
 
 ENV CARGO_TARGET_DIR=/tmp/target
 ENV CARGO_HOME=/tmp/cargo
-ENV TARGET=x86_64-unknown-linux-musl
 
 ENV BIN=flayers
 
@@ -19,6 +18,7 @@ COPY . .
 
 RUN --mount=type=cache,target=/tmp/cargo \
     --mount=type=cache,target=/tmp/target \
+    TARGET=$(uname -m)-unknown-linux-musl && \
     cargo build --release --target ${TARGET} && \
     cp ${CARGO_TARGET_DIR}/${TARGET}/release/${BIN} /out/
 
