@@ -1,11 +1,10 @@
 # syntax = docker/dockerfile:1-experimental
 
 # Build Stage
-FROM clux/muslrust:1.62.1@sha256:14a55156d249f43bf192625cd48ff7bfe4c3ae88e6a2a46332a8ef41c94d4fd1 AS builder
+FROM clux/muslrust:stable AS builder
 
 ENV CARGO_TARGET_DIR=/tmp/target
 ENV CARGO_HOME=/tmp/cargo
-ENV TARGET=x86_64-unknown-linux-musl
 
 ENV BIN=flayers
 
@@ -19,6 +18,7 @@ COPY . .
 
 RUN --mount=type=cache,target=/tmp/cargo \
     --mount=type=cache,target=/tmp/target \
+    TARGET=$(uname -m)-unknown-linux-musl && \
     cargo build --release --target ${TARGET} && \
     cp ${CARGO_TARGET_DIR}/${TARGET}/release/${BIN} /out/
 
